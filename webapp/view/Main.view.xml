@@ -1,0 +1,73 @@
+<mvc:View controllerName="portoseguro.zpstacfgtt.controller.Main" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:l="sap.ui.layout" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:core="sap.ui.core"
+    xmlns:ui="sap.ui.table" xmlns:f="sap.f" xmlns:u="sap.ui.unified">
+    <Page id="page" title="{i18n>title}">
+        <f:DynamicPage id="dynamicPageId" showFooter="true">
+						<f:title>
+							<f:DynamicPageTitle id="_IDGenDynamicPageTitle1">
+								<f:content>
+									<FlexBox id="_IDGenFlexBox1" alignItems="Center" justifyContent="Center">
+										<items>
+											<ComboBox id="cmbOrigens" items="{ path: '/OZPSTA_CFG_ORIGENS', sorter: { path: 'Script' } }" selectionChange=".onBtnOrigem" width="100%">
+												<core:Item id="_IDGenItem1" key="{Script}" text="{Script}"/>
+											</ComboBox>
+										</items>
+									</FlexBox>
+								</f:content>
+								<f:heading>
+									<Text xmlns="sap.m" text="ORIGEM" id="text6"/>
+								</f:heading>
+							</f:DynamicPageTitle>
+						</f:title>
+						<f:header>
+							<f:DynamicPageHeader id="_IDGenDynamicPageHeader1" pinnable="true">
+								<smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="OZPSTA_CFG_EMP_TT" persistencyKey="SmartFilter_Explored" visible="false">
+									<smartFilterBar:controlConfiguration>
+										<smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration1" key="CodigoEventoNegocio"/>
+										<smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration2" key="CodigoEmpresa"/>
+									</smartFilterBar:controlConfiguration>
+								</smartFilterBar:SmartFilterBar>
+							</f:DynamicPageHeader>
+						</f:header>
+						<f:content>
+							<smartTable:SmartTable id="ItemsTable" entitySet="OZPSTA_CFG_EMP_TT" app:useSmartField="true" smartFilterId="smartFilterBar"
+								editable="false" tableType="Table" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false" header="Items"
+								showRowCount="true" editTogglable="false" persistencyKey="SmartTableAnalytical_Explored" enableAutoBinding="false"
+								class="sapUiResponsiveContentPadding" beforeRebindTable="onBeforeRebindTable" showFullScreenButton="true"
+								visible="false">
+								<ui:Table id="_IDGenTable1" columnResize="onResize"></ui:Table>
+								<!--	<l:VerticalLayout class="sapUiContentPadding" id="oVerticalContent" width="100%" ></l:VerticalLayout>-->
+								<smartTable:layoutData>
+									<FlexItemData id="_IDGenFlexItemData1" growFactor="1" baseSize="0%"/>
+								</smartTable:layoutData>
+								<smartTable:customToolbar>
+									<OverflowToolbar width="100%" id="toolbar2">
+										<content>
+											<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+											<FlexBox id="_IDGenFlexBox2">
+												<u:FileUploader id="fileUploader" name="fup_data" uploadUrl="/event_translator/upload_file" tooltip="{i18n>fup_tooltip_search_file}"
+													uploadComplete="handleUploadComplete" change="handleFiles" typeMissmatch="handleTypeMissmatch" style="Emphasized" fileType="csv"
+													placeholder="{i18n>fup_plch_select_file}"/>
+												<Button id="btnImportFile" visible="false" text="{i18n>btn_file_upload}" icon="sap-icon://upload" press="handleUploadPress"/>
+												<!-- <u:FileUploader id="fileUploader" change="handleFiles"/> handleValueChange -->
+											</FlexBox>
+											<Button id="btnHelp" icon="sap-icon://sys-help-2" press="onPDFViewer" ariaLabelledBy="editButtonLabel"
+											text=" Ajuda"/>
+											<Button xmlns="sap.m" id="btnDownloadTemplate" text="{i18n>btn_download_template}" tooltip="{i18n>btn_download_template}"
+												icon="sap-icon://excel-attachment" press=".onDownloadTemplatePressed"/>
+											<Button xmlns="sap.m" id="btnNew" icon="sap-icon://add" press=".onNew"/>
+											<Button xmlns="sap.m" id="btnDel" icon="sap-icon://delete" press=".onDelete"/>
+											<!-- <Button xmlns="sap.m" id="btnSave" icon="sap-icon://save" press=".onSave"/> -->
+											<Button xmlns="sap.m" id="btnEdit" icon="sap-icon://edit" press=".onEdit"/>
+											<Button id="_IDGenButton1" icon="sap-icon://excel-attachment" press="onExportToExcel" tooltip="{i18n>export_excel_text}"/>
+											
+										</content>
+									</OverflowToolbar>
+								</smartTable:customToolbar>
+							</smartTable:SmartTable>
+						</f:content>
+						<f:footer/>
+					</f:DynamicPage>
+    </Page>
+</mvc:View>

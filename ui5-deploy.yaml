@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "2.5"
+metadata:
+  name: portoseguro.zpstacfgtt
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          url: http://li5762.portoseguro.brasil:8200
+          client: "100"
+        app:
+          name: ZPSTA_CFG_TT
+          package: ZFPSL
+          transport: SFDK904189

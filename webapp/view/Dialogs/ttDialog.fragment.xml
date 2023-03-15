@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog id="_IDGenSelectDialog1"
+		noDataText="Nenhuma trasaction type encontrada!"
+		title="Transaction type"
+		search="handleSearch"
+		confirm="handleClose"
+		cancel="handleClose"
+		items="{
+			path: '/OZPSTA_TRANS_TYPE'
+		}" >
+		<StandardListItem id="_IDGenStandardListItem1"
+			title="{TransType}"
+			description="{TTransTypeS}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

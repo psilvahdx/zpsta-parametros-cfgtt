@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZPSGW_CONFIG_SRV" xml:lang="pt" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="ZPSTA_CFG_DEPARA_PREM" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CodEveNegocio"/>
+                    <PropertyRef Name="NumeroEndosso"/>
+                    <PropertyRef Name="Ro"/>
+                    <PropertyRef Name="Tpmoid"/>
+                    <PropertyRef Name="Cmpid"/>
+                    <PropertyRef Name="CodigoEmpresa"/>
+                </Key>
+                <Property Name="CodEveNegocio" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="COD_EVE_NEGOCIO"/>
+                <Property Name="NumeroEndosso" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="NUMERO_ENDOSSO"/>
+                <Property Name="Ro" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="RO"/>
+                <Property Name="Tpmoid" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="TPMOID"/>
+                <Property Name="Cmpid" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="CMPID"/>
+                <Property Name="CodigoEmpresa" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="CODIGO_EMPRESA"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_ATCFG_ENT" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Idsec"/>
+                    <PropertyRef Name="CodEmpresa"/>
+                    <PropertyRef Name="Client"/>
+                </Key>
+                <Property Name="Idsec" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="IDSEC"/>
+                <Property Name="CodEmpresa" Type="Edm.Decimal" Nullable="false" Precision="10" Scale="0" sap:unicode="false" sap:label="COD_EMPRESA"/>
+                <Property Name="Client" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="CLIENT"/>
+                <Property Name="NomeEmpresa" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="NOME_EMPRESA"/>
+                <Property Name="CodLegalEntity" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="COD_LEGAL_ENTITY"/>
+                <Property Name="DtInclusaoReg" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="DT_INCLUSAO_REG"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="STATUS"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_CFG_ORIGENS" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Script"/>
+                </Key>
+                <Property Name="Script" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="SCRIPT" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_CFG_TABSTG" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Table"/>
+                </Key>
+                <Property Name="Table" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="TABLE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_CFG_EMPRES" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CodEmpresa"/>
+                </Key>
+                <Property Name="CodEmpresa" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="COD_EMPRESA" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NomeEmpresa" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="NOME_EMPRESA" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_ATCFG_REG_SEM_MOV" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CodigoEmpresa"/>
+                    <PropertyRef Name="CodigoEventoNegocio"/>
+                </Key>
+                <Property Name="CodigoEmpresa" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="CODIGO_EMPRESA"/>
+                <Property Name="CodigoEventoNegocio" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="CODIGO_EVENTO_NEGOCIO"/>
+                <Property Name="Origem" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="ORIGEM"/>
+                <Property Name="Field01" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="FIELD01"/>
+                <Property Name="Field02" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="FIELD02"/>
+                <Property Name="Field03" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="FIELD03"/>
+                <Property Name="Field04" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="FIELD04"/>
+                <Property Name="Field05" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="FIELD05"/>
+                <Property Name="Field06" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="FIELD06"/>
+                <Property Name="Field07" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="FIELD07"/>
+                <Property Name="Field08" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="FIELD08"/>
+                <Property Name="Field09" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="FIELD09"/>
+                <Property Name="Field10" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="FIELD10"/>
+                <Property Name="Naoprocessar" Type="Edm.Int64" sap:unicode="false" sap:label="NAOPROCESSAR"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_DESEMP_LIBERA_CTRL" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ctrl"/>
+                </Key>
+                <Property Name="Ctrl" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="CTRL"/>
+                <Property Name="CtrlValue" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="CTRL_VALUE"/>
+                <Property Name="TipoCalculo" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="TIPO_CALCULO"/>
+                <Property Name="EmpHana" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="EMP_HANA"/>
+                <Property Name="TipoCalculoAnt" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="TIPO_CALCULO_ANT"/>
+                <Property Name="EmpHanaAnt" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="EMP_HANA_ANT"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_DESEMP_EMAILS" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Email"/>
+                </Key>
+                <Property Name="Email" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="EMAIL"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_CFG_SCRIPTS" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="IDSEC"/>
+                </Key>
+                <Property Name="IDSEC" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="IDSEC"/>
+                <Property Name="Script" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="SCRIPT"/>
+                <Property Name="Field" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="FIELD"/>
+                <Property Name="TtField" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="TT_FIELD"/>
+                <Property Name="ScriptTechnicalName" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="SCRIPT_TECHNICAL_NAME"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_CFG_EMP_EVE" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Idsec"/>
+                </Key>
+                <Property Name="Idsec" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="IDSEC"/>
+                <Property Name="CodigoEmpresa" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="CODIGO_EMPRESA"/>
+                <Property Name="CodEveNegocio" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="COD_EVE_NEGOCIO"/>
+                <Property Name="DescEveNegocio" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="DESC_EVE_NEGOCIO"/>
+                <Property Name="Script" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="SCRIPT"/>
+                <Property Name="Table" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="TABLE"/>
+                <Property Name="Pivot" Type="Edm.Byte" Nullable="false" sap:unicode="false" sap:label="PIVOT"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_CFG_RAMO_PASS" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Idsec"/>
+                </Key>
+                <Property Name="Idsec" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="IDSEC"/>
+                <Property Name="CodigoRamo" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="CODIGO_RAMO"/>
+                <Property Name="GrupoRamoPassivo" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="GRUPO_RAMO_PASSIVO"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_CFG_ITC" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Idsec"/>
+                    <PropertyRef Name="Client"/>
+                    <PropertyRef Name="ItcCnpjRaiz"/>
+                </Key>
+                <Property Name="Idsec" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="IDSEC"/>
+                <Property Name="Client" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="CLIENT"/>
+                <Property Name="ItcCnpjRaiz" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ITC_CNPJ_RAIZ"/>
+                <Property Name="ItcLegalEntity" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="ITC_LEGAL_ENTITY"/>
+                <Property Name="ItcRazaoSocial" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="ITC_RAZAO_SOCIAL"/>
+                <Property Name="ItcTipo" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="ITC_TIPO"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_CFG_DEPARA_SIN" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CodEveNegocio"/>
+                    <PropertyRef Name="CodMovSinistro"/>
+                    <PropertyRef Name="JuridicoFlag"/>
+                    <PropertyRef Name="Ro"/>
+                    <PropertyRef Name="Tpmoid"/>
+                    <PropertyRef Name="TipoMovimento"/>
+                    <PropertyRef Name="Cmpid"/>
+                    <PropertyRef Name="TpSin"/>
+                    <PropertyRef Name="CodEmpresa"/>
+                </Key>
+                <Property Name="CodEveNegocio" Type="Edm.Decimal" Nullable="false" Precision="10" Scale="0" sap:unicode="false" sap:label="COD_EVE_NEGOCIO"/>
+                <Property Name="CodMovSinistro" Type="Edm.Decimal" Nullable="false" Precision="10" Scale="0" sap:unicode="false" sap:label="COD_MOV_SINISTRO"/>
+                <Property Name="JuridicoFlag" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="JURIDICO_FLAG"/>
+                <Property Name="Ro" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="RO"/>
+                <Property Name="Tpmoid" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="TPMOID"/>
+                <Property Name="TipoMovimento" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="TIPO_MOVIMENTO"/>
+                <Property Name="Cmpid" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="CMPID"/>
+                <Property Name="TpSin" Type="Edm.Decimal" Nullable="false" Precision="2" Scale="0" sap:unicode="false" sap:label="TP_SIN"/>
+                <Property Name="CodEmpresa" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="COD_EMPRESA"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_ATCFG_ORIGEM" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Idsec"/>
+                    <PropertyRef Name="CodSistOrigem"/>
+                    <PropertyRef Name="Client"/>
+                </Key>
+                <Property Name="Idsec" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="IDSEC"/>
+                <Property Name="CodSistOrigem" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="COD_SIST_ORIGEM"/>
+                <Property Name="Client" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="CLIENT"/>
+                <Property Name="NomeSistOrigem" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="NOME_SIST_ORIGEM"/>
+                <Property Name="DtInclusaoReg" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="DT_INCLUSAO_REG"/>
+                <Property Name="SourceSystem" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="SOURCE_SYSTEM"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="STATUS"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_CFG_DEPARA_EMP" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CodEmpresa"/>
+                </Key>
+                <Property Name="CodEmpresa" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="COD_EMPRESA"/>
+                <Property Name="Descricao" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="DESCRICAO"/>
+                <Property Name="CodCia" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="COD_CIA"/>
+            </EntityType>
+            <EntityType Name="ZPSTA_CFG_MARGEM_ERRO_PREMIO" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Client"/>
+                    <PropertyRef Name="CodigoEmpresa"/>
+                </Key>
+                <Property Name="Client" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="CLIENT"/>
+                <Property Name="CodigoEmpresa" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="CODIGO_EMPRESA"/>
+                <Property Name="ValorMargemLimite" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="5" sap:unicode="false" sap:label="VALOR_MARGEM_LIMITE"/>
+            </EntityType>
+
+            <EntityType Name="ZPSTA_CFG_EMP_TT" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Idsec"/>
+                </Key>
+                <Property Name="codigo_empresa" Type="Edm.Int32" sap:unicode="false" sap:label="CODIGO_EMPRESA"/>
+                <Property Name="codigo_evento_negocio" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="CODIGO_EVENTO_NEGOCIO"/>
+                <Property Name="field01" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD01"/>
+                <Property Name="field02" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD02"/>
+                <Property Name="field03" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD03"/>
+                <Property Name="field04" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD04"/>
+                <Property Name="field05" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD05"/>
+                <Property Name="field06" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD06"/>
+                <Property Name="field07" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD07"/>
+                <Property Name="field08" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD08"/>
+                <Property Name="field09" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD09"/>
+                <Property Name="field10" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD10"/>
+                <Property Name="field11" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD11"/>
+                <Property Name="field12" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD12"/>
+                <Property Name="field13" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD13"/>
+                <Property Name="field14" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD14"/>
+                <Property Name="field15" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD15"/>
+                <Property Name="field16" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD16"/>
+                <Property Name="transaction_type" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="TRANSACTION_TYPE"/>
+                <Property Name="desc_transactional_type" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="DESC_TRANSACTIONAL_TYPE"/>
+                <Property Name="cont_data_vigencia" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="CONT_DATA_VIGENCIA"/>
+                <Property Name="IDSEC" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="IDSEC"/>
+                <Property Name="Script" Type="Edm.String" MaxLength="150" sap:unicode="false" sap:label="SCRIPT"/>
+            </EntityType>
+
+            <EntityType Name="ZPSTA_TRANS_TYPE" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TransType"/>
+                </Key>
+                <Property Name="TransType" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="TRANS_TYPE"/>
+                <Property Name="TTransTypeS" Type="Edm.String" MaxLength="25" sap:unicode="false" sap:label="T_TRANS_TYPE_S"/>
+            </EntityType>
+
+            <EntityType Name="ZPSTA_CFG_TT" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="IDSEC"/>
+                </Key>
+                <Property Name="codigo_empresa" Type="Edm.Int32" sap:unicode="false" sap:label="CODIGO_EMPRESA"/>
+                <Property Name="codigo_evento_negocio" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="CODIGO_EVENTO_NEGOCIO"/>
+                <Property Name="field01" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD01"/>
+                <Property Name="field02" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD02"/>
+                <Property Name="field03" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD03"/>
+                <Property Name="field04" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD04"/>
+                <Property Name="field05" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD05"/>
+                <Property Name="field06" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD06"/>
+                <Property Name="field07" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD07"/>
+                <Property Name="field08" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD08"/>
+                <Property Name="field09" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD09"/>
+                <Property Name="field10" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD10"/>
+                <Property Name="field11" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD11"/>
+                <Property Name="field12" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD12"/>
+                <Property Name="field13" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD13"/>
+                <Property Name="field14" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD14"/>
+                <Property Name="field15" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD15"/>
+                <Property Name="field16" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="FIELD16"/>
+                <Property Name="transaction_type" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="TRANSACTION_TYPE"/>
+                <Property Name="desc_transactional_type" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="DESC_TRANSACTIONAL_TYPE"/>
+                <Property Name="cont_data_vigencia" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="CONT_DATA_VIGENCIA"/>
+                <Property Name="IDSEC" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="IDSEC"/>
+            </EntityType>
+
+            <EntityContainer Name="ZPSGW_CONFIG_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="OZPSTA_CFG_DEPARA_PREM" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_DEPARA_PREM" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_ATCFG_ENT" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_ATCFG_ENT" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_CFG_ORIGENS" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_ORIGENS" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_CFG_TABSTG" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_TABSTG" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_CFG_EMPRES" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_EMPRES" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_ATCFG_REG_SEM_MOV" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_ATCFG_REG_SEM_MOV" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_DESEMP_LIBERA_CTRL" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_DESEMP_LIBERA_CTRL" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_DESEMP_EMAILS" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_DESEMP_EMAILS" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_CFG_SCRIPTS" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_SCRIPTS" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_CFG_EMP_EVE" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_EMP_EVE" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_CFG_RAMO_PASS" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_RAMO_PASS" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_CFG_ITC" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_ITC" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_CFG_DEPARA_SIN" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_DEPARA_SIN" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_ATCFG_ORIGEM" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_ATCFG_ORIGEM" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_CFG_DEPARA_EMP" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_DEPARA_EMP" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_CFG_MARGEM_ERRO_PREMIO" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_MARGEM_ERRO_PREMIO" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_CFG_EMP_TT" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_EMP_TT" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_CFG_TT" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_CFG_TT" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_TRANS_TYPE" EntityType="ZPSGW_CONFIG_SRV.ZPSTA_TRANS_TYPE" sap:searchable="true" sap:content-version="1"/>
+            </EntityContainer>
+            <atom:link rel="self" href="http://li5762.portoseguro.brasil:8200/sap/opu/odata/sap/ZPSGW_CONFIG_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://li5762.portoseguro.brasil:8200/sap/opu/odata/sap/ZPSGW_CONFIG_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

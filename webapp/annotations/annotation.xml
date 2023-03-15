@@ -1,0 +1,327 @@
+
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/HTML5.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.HTML5.v1" Alias="HTML5"/>
+    </edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/sap/ZPSGW_INBOUND_SRV/$metadata">
+		<edmx:Include Alias="Metadata" Namespace="ZPSGW_CONFIG_SRV"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="portoseguro.zpstacfgtt.annotation.ZPSGW_CONFIG_SRV">
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_TT">
+				<Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>codigo_empresa</PropertyPath>
+						<PropertyPath>codigo_evento_negocio</PropertyPath>
+						<PropertyPath>cont_data_vigencia</PropertyPath>
+						<PropertyPath>desc_transactional_type</PropertyPath>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="codigo_empresa"/>
+							<Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="10rem"/>
+								</Record>
+							</Annotation>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="codigo_evento_negocio"/>
+							<Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="10rem"/>
+								</Record>
+							</Annotation>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="cont_data_vigencia"/>
+							<Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="10rem"/>
+								</Record>
+							</Annotation>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="desc_transactional_type"/>
+							<Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="35rem"/>
+								</Record>
+							</Annotation>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field01"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field02"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field03"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field04"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field05"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field06"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field07"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field08"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field09"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field10"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field11"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field12"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field13"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field14"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field15"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field16"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Script"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="transaction_type"/>
+							<Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="10rem"/>
+								</Record>
+							</Annotation>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="IDSEC"/>
+							<Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="10rem"/>
+								</Record>
+							</Annotation>
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_TT">
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="codigo_empresa"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="codigo_evento_negocio"/>
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_TRANS_TYPE">
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="TransType"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="TTransTypeS"/>
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_TT/codigo_empresa">
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="OZPSTA_CFG_EMP_EVE"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="codigo_empresa"/>
+									<PropertyValue Property="ValueListProperty" String="CodigoEmpresa"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="CodEveNegocio"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="DescEveNegocio"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="{@i18n&gt;CODIGO_EMPRESA}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_TT/codigo_evento_negocio">
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="OZPSTA_CFG_EMP_EVE"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="codigo_evento_negocio"/>
+									<PropertyValue Property="ValueListProperty" String="CodEveNegocio"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="CodigoEmpresa"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="DescEveNegocio"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Script"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Table"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Pivot"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="{@i18n&gt;CODIGO_EVENTO_NEGOCIO}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_TT/transaction_type">
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="OZPSTA_TRANS_TYPE"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="TransType"/>
+									<PropertyValue Property="ValueListProperty" String="TransType"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="TTransTypeS"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="{@i18n&gt;TRANSACTION_TYPE}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_TT/desc_transactional_type">
+				<Annotation Term="Common.Label" String="{@i18n&gt;DESC_TRANSACTIONAL_TYPE}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_TT/cont_data_vigencia">
+				<Annotation Term="Common.IsUpperCase" Bool="true"/>
+				<Annotation Term="Common.Label" String="{@i18n&gt;CONT_DATA_VIGENCIA}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_TT/codigo_empresa">
+				<Annotation Term="Common.Label" String="{@i18n&gt;CODIGO_EMPRESA}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_TT/codigo_evento_negocio">
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="OZPSTA_CFG_EMP_EVE"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterIn">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="codigo_empresa"/>
+									<PropertyValue Property="ValueListProperty" String="CodigoEmpresa"/>
+								</Record>
+								<Record Type="Common.ValueListParameterIn">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Script"/>
+									<PropertyValue Property="ValueListProperty" String="Script"/>
+								</Record>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="codigo_evento_negocio"/>
+									<PropertyValue Property="ValueListProperty" String="CodEveNegocio"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="CodigoEmpresa"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="DescEveNegocio"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Script"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Table"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Pivot"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="{@i18n&gt;CODIGO_EVENTO_NEGOCIO}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_TT/transaction_type">
+				<Annotation Term="Common.Label" String="{@i18n&gt;TRANSACTION_TYPE}"/>
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="OZPSTA_TRANS_TYPE"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="TransType"/>
+									<PropertyValue Property="ValueListProperty" String="TransType"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="TTransTypeS"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_TT/desc_transactional_type">
+				<Annotation Term="Common.Label" String="{@i18n&gt;DESC_TRANSACTIONAL_TYPE}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_TT/cont_data_vigencia">
+				<Annotation Term="Common.Label" String="{@i18n&gt;CONT_DATA_VIGENCIA}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_TT/Script">
+				<Annotation Term="Common.Label" String="{@i18n&gt;SCRIPT}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_EVE/CodigoEmpresa">
+				<Annotation Term="Common.Label" String="{@i18n&gt;CODIGO_EMPRESA}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_EVE/CodEveNegocio">
+				<Annotation Term="Common.Label" String="{@i18n&gt;CODIGO_EVENTO_NEGOCIO}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_EVE/DescEveNegocio">
+				<Annotation Term="Common.Label" String="{@i18n&gt;DESC_EVT_NEGOCIO}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_EVE/Script">
+				<Annotation Term="Common.Label" String="{@i18n&gt;SCRIPT}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_EVE/Table">
+				<Annotation Term="Common.Label" String="{@i18n&gt;TABLE}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_CFG_EMP_EVE/Pivot">
+				<Annotation Term="Common.Label" String="{@i18n&gt;PIVOT}"/>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

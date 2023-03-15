@@ -1,0 +1,95 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartForm="sap.ui.comp.smartform" xmlns:form="sap.ui.layout.form"
+	xmlns:smartField="sap.ui.comp.smartfield" class="sapUiSizeCompact">
+	<Dialog id="InsertDialog" title="{i18n>insertTitle}">
+		<content>
+			<smartForm:SmartForm id="form" editable="true" entityType="OZPSTA_CFG_TT">
+				<smartForm:Group id="detailGroup">
+					<smartForm:GroupElement id="_IDGenGroupElement1">
+						<smartField:SmartField value="{codigo_empresa}" id="codigo_empresa" />
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement2">
+						<smartField:SmartField value="{codigo_evento_negocio}" id="codigo_evento_negocio"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement3">
+						<smartField:SmartField value="{field01}" id="field01"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement4">
+						<smartField:SmartField value="{field02}" id="field02"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement5">
+						<smartField:SmartField value="{field03}" id="field03"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement6">
+						<smartField:SmartField value="{field04}" id="field04"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement7">
+						<smartField:SmartField value="{field05}" id="field05"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement8">
+						<smartField:SmartField value="{field06}" id="field06"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement9">
+						<smartField:SmartField value="{field07}" id="field07"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement10">
+						<smartField:SmartField value="{field08}" id="field08"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement11">
+						<smartField:SmartField value="{field09}" id="field09"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement12">
+						<smartField:SmartField value="{field10}" id="field10"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement13">
+						<smartField:SmartField value="{field11}" id="field11"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement14">
+						<smartField:SmartField value="{field12}" id="field12"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement15">
+						<smartField:SmartField value="{field13}" id="field13"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement16">
+						<smartField:SmartField value="{field14}" id="field14"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement17">
+						<smartField:SmartField value="{field15}" id="field15"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement18">
+						<smartField:SmartField value="{field16}" id="field16"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement19">
+						<smartField:SmartField value="{transaction_type}" id="transaction_type_0" visible="false"/>
+						<Label id="_IDGenLabel1" text="Transaction Type:" required="true" />
+						<Input
+							id="transaction_type"
+							type="Text"
+							placeholder="Selecione um transaction type"
+							showSuggestion="true"
+							showValueHelp="true"
+							valueHelpRequest="handleSelectDialogPress"
+							valueHelpOnly="true" >
+						</Input>
+						<!-- <Button
+							width="120px"
+							class="sapUiSmallMarginBottom"
+							text="Selecionar"
+							press="handleSelectDialogPress" />-->
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement20">
+						<smartField:SmartField value="{desc_transactional_type}" id="desc_transactional_type"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement id="_IDGenGroupElement21">
+						<smartField:SmartField value="{cont_data_vigencia}" id="cont_data_vigencia"/>
+					</smartForm:GroupElement>
+				</smartForm:Group>
+			</smartForm:SmartForm>
+		</content>
+		<beginButton>
+			<Button xmlns="sap.m" text="{i18n>btnAdd}" id="btnAdd" press=".onAdd"/>
+		</beginButton>
+		<endButton>
+			<Button xmlns="sap.m" text="{i18n>btnCancel}" id="btnCancel" press=".onCancel"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
