@@ -170,7 +170,7 @@ sap.ui.define([
     
                             var context = tblDados.getContextByIndex(selectedIndex);
                             var IDSEC = context.getObject().IDSEC;
-                            var path = "/OZPSTA_CFG_TT(\'" + IDSEC + "\')";
+                            var path = "/OZPSTA_CFG_TT(" + IDSEC + "l)";
                             // var path = context.getPath();
                             
                             oModel.remove(path);
@@ -239,32 +239,33 @@ sap.ui.define([
             onNew: function () {
     
                 var newItem = {
-                    "CodigoEmpresa" : 0,
-                    "CodigoEventoNegocio" : "",
-                    "Field01" : "",
-                    "Field02" : "",
-                    "Field03" : "",
-                    "Field04" : "",
-                    "Field05" : "",
-                    "Field06" : "",
-                    "Field07" : "",
-                    "Field08" : "",
-                    "Field09" : "",
-                    "Field10" : "",
-                    "Field11" : "",
-                    "Field12" : "",
-                    "Field13" : "",
-                    "Field14" : "",
-                    "Field15" : "",
-                    "Field16" : "",
-                    "TransactionType" : "",
-                    "DescTransactionalType" : "",
-                    "ContDataVigencia" : ""
+                    "codigo_empresa" : 0,
+                    "codigo_evento_negocio" : "",
+                    "field01" : "",
+                    "field02" : "",
+                    "field03" : "",
+                    "field04" : "",
+                    "field05" : "",
+                    "field06" : "",
+                    "field07" : "",
+                    "field08" : "",
+                    "field09" : "",
+                    "field10" : "",
+                    "field11" : "",
+                    "field12" : "",
+                    "field13" : "",
+                    "field14" : "",
+                    "field15" : "",
+                    "field16" : "",
+                    "transaction_type" : "",
+                    "desc_transactional_type" : "",
+                    "cont_data_vigencia" : ""
                     // "Idsec" : 99
                 };
     
                 var oModel = this.getOwnerComponent().getModel();
-                var oContext = oModel.createEntry("/OZPSTA_CFG_EMP_TT", {
+                //var oContext = oModel.createEntry("/OZPSTA_CFG_EMP_TT", {
+                var oContext = oModel.createEntry("/OZPSTA_CFG_TT", {
                     properties: newItem
                 });
                 this._oContext = oContext;
@@ -284,7 +285,7 @@ sap.ui.define([
     
                         var context = tblDados.getContextByIndex(selectedIndex);
                         var IDSEC = context.getObject().IDSEC;
-                        var path = "/OZPSTA_CFG_TT(\'" + IDSEC + "\')";
+                        var path = "/OZPSTA_CFG_TT(" + IDSEC + "l)";
                         // var path = "/OZPSTA_CFG_TT(\'" + IDSEC + "\')";
                         var oModel = that.getOwnerComponent().getModel();
     
@@ -328,7 +329,7 @@ sap.ui.define([
                     return;
                 }*/
 
-                var formDialog = sap.ui.core.Fragment.byId("frmDialog", "form").getElementBinding();
+               /* var formDialog = sap.ui.core.Fragment.byId("frmDialog", "form").getElementBinding();
                 var formPath = sap.ui.core.Fragment.byId("frmDialog", "form").getElementBinding().sPath;
                 formPath = formPath.substr(1);
                 var formEntity = formDialog.oModel.mChangedEntities[formPath];
@@ -337,7 +338,7 @@ sap.ui.define([
                 formEntity.CodigoEventoNegocio = sap.ui.core.Fragment.byId("frmDialog", "codigo_evento_negocio")._oControl.edit.mProperties.value;
                 formEntity.TransactionType = sap.ui.core.Fragment.byId("frmDialog", "transaction_type_0").mProperties.value;
                 formEntity.DescTransactionalType = sap.ui.core.Fragment.byId("frmDialog", "desc_transactional_type")._oControl.edit.mProperties.value;
-                formEntity.ContDataVigencia = sap.ui.core.Fragment.byId("frmDialog", "cont_data_vigencia")._oControl.edit.mProperties.value;
+                formEntity.ContDataVigencia = sap.ui.core.Fragment.byId("frmDialog", "cont_data_vigencia")._oControl.edit.mProperties.value;*/
                 var boundItem = model.getProperty(path);
 
                 that.onValidaDados(model, that, function () {
@@ -654,7 +655,7 @@ sap.ui.define([
                 var sUrl = oRowBinding.getDownloadUrl();
     
                 aSkipTop.forEach(element => {
-                    aPromisses.push(fetch(`${sUrl}&$skip=${element.skip}&$top=${element.top}&sap-language=PT`, {
+                    aPromisses.push(fetch(`${sUrl}&$skip=${element.skip}&$top=${element.top}&sap-language=PT&$format=json`, {
                         method: "GET"
                     }));
                     // `${sUrl}&$skip=${element.skip}&$top=${element.top}&sap-language=PT&portalInterceptorAppId=zpsta_param_cfgtt_ui`
@@ -666,7 +667,7 @@ sap.ui.define([
                     .then(function (responses) {
                         // Get a JSON object from each of the responses
                         return Promise.all(responses.map(function (response) {
-                            return response;
+                            return response.json();
                         }));
                     }).then(function (data) {
     

@@ -248,7 +248,7 @@
                 <Property Name="transaction_type" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="TRANSACTION_TYPE"/>
                 <Property Name="desc_transactional_type" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="DESC_TRANSACTIONAL_TYPE"/>
                 <Property Name="cont_data_vigencia" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="CONT_DATA_VIGENCIA"/>
-                <Property Name="IDSEC" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="IDSEC"/>
+                <Property Name="IDSEC" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="IDSEC"/>
             </EntityType>
 
             <EntityContainer Name="ZPSGW_CONFIG_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">

@@ -97,7 +97,14 @@
             "": {
                 "dataSource": "mainService",
                 "preload": true,
-                "settings": {}
+                "settings": {
+                    "operationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",                    
+                    "useBatch": true,
+                    "defaultUpdateMethod": "PUT"
+                }
             }
         },
         "resources": {

@@ -64,6 +64,7 @@
 						<Input
 							id="transaction_type"
 							type="Text"
+							value="{transaction_type}"
 							placeholder="Selecione um transaction type"
 							showSuggestion="true"
 							showValueHelp="true"
