@@ -139,6 +139,7 @@ sap.ui.define([
     
             onSave: function () {
                 var oModel = this.getOwnerComponent().getModel();
+                oModel.setUseBatch(true);
     
                 var mParameters = {
                     sucess: function (oData, response) {
@@ -160,6 +161,7 @@ sap.ui.define([
             onDelete: function () {
                 var that = this;
                 var oModel = that.getOwnerComponent().getModel();
+                oModel.setUseBatch(false);
                 this.approveDialog(function () {
                     var tblDados = that.byId("ItemsTable").getTable(),
                         selectedIndices = tblDados.getSelectedIndices();
@@ -170,10 +172,20 @@ sap.ui.define([
     
                             var context = tblDados.getContextByIndex(selectedIndex);
                             var IDSEC = context.getObject().IDSEC;
-                            var path = "/OZPSTA_CFG_TT(" + IDSEC + "l)";
-                            // var path = context.getPath();
+                            //var path = "/OZPSTA_CFG_TT(" + IDSEC + "l)";                            
+                            var path = oModel.createKey("/OZPSTA_CFG_TT", {IDSEC: IDSEC});                            
                             
-                            oModel.remove(path);
+                            oModel.remove(path,
+                                {
+                                    success: function (oData){
+                                        MessageToast.show('Registro excluído com sucesso!');
+                                        oModel.refresh();
+                                    },
+                                    error: function (oData){
+                                        sap.m.MessageBox.error('Erro ao excluir registro!');
+
+                                    }
+                                });
                         });
                         
                         
@@ -264,6 +276,7 @@ sap.ui.define([
                 };
     
                 var oModel = this.getOwnerComponent().getModel();
+                oModel.setUseBatch(true);
                 //var oContext = oModel.createEntry("/OZPSTA_CFG_EMP_TT", {
                 var oContext = oModel.createEntry("/OZPSTA_CFG_TT", {
                     properties: newItem
@@ -288,7 +301,7 @@ sap.ui.define([
                         var path = "/OZPSTA_CFG_TT(" + IDSEC + "l)";
                         // var path = "/OZPSTA_CFG_TT(\'" + IDSEC + "\')";
                         var oModel = that.getOwnerComponent().getModel();
-    
+                        oModel.setUseBatch(true);
                         that.openDialog(path, oModel);
     
                     });
@@ -318,27 +331,9 @@ sap.ui.define([
     
                 var path = sap.ui.core.Fragment.byId("frmDialog", "form").getElementBinding().getPath();
                 var model = sap.ui.core.Fragment.byId("frmDialog", "form").getModel();
+                model.setUseBatch(true);
                 // var boundItem = model.getProperty(path);
-                var that = this;
-                
-                // Valida Transaction_Type
-                /*var iptTtType = sap.ui.core.Fragment.byId("frmDialog", "transaction_type").getValue();
-                var status = that.onValTType(iptTtType);
-                
-                if(status === "erro"){
-                    return;
-                }*/
-
-               /* var formDialog = sap.ui.core.Fragment.byId("frmDialog", "form").getElementBinding();
-                var formPath = sap.ui.core.Fragment.byId("frmDialog", "form").getElementBinding().sPath;
-                formPath = formPath.substr(1);
-                var formEntity = formDialog.oModel.mChangedEntities[formPath];
-
-                formEntity.CodigoEmpresa = parseInt(sap.ui.core.Fragment.byId("frmDialog", "codigo_empresa")._oControl.edit.mProperties.value);
-                formEntity.CodigoEventoNegocio = sap.ui.core.Fragment.byId("frmDialog", "codigo_evento_negocio")._oControl.edit.mProperties.value;
-                formEntity.TransactionType = sap.ui.core.Fragment.byId("frmDialog", "transaction_type_0").mProperties.value;
-                formEntity.DescTransactionalType = sap.ui.core.Fragment.byId("frmDialog", "desc_transactional_type")._oControl.edit.mProperties.value;
-                formEntity.ContDataVigencia = sap.ui.core.Fragment.byId("frmDialog", "cont_data_vigencia")._oControl.edit.mProperties.value;*/
+                var that = this;         
                 var boundItem = model.getProperty(path);
 
                 that.onValidaDados(model, that, function () {
@@ -508,9 +503,9 @@ sap.ui.define([
             handleUploadComplete: function (oEvent) {
                 var sResponseStatus = oEvent.getParameter("status");
                 var oFileUploader = this.byId("fileUploader");
-                if (sResponseStatus === 200) {
+                if (sResponseStatus === 200 || sResponseStatus === 201) {
                     var sResponse = oEvent.getParameter("responseRaw");
-                    MessageToast.show(sResponse);
+                    MessageToast.show("Registros Importados com Sucesso!");
                     oFileUploader.setValue("");
                     var obtnImportFile = this.byId("btnImportFile");
                     obtnImportFile.setVisible(false);
@@ -519,6 +514,7 @@ sap.ui.define([
                 } else {
                     //MessageToast.show("Erro ao fazer upload do arquivo");
                     sap.m.MessageBox.error("Erro ao fazer upload do arquivo");
+                    oFileUploader.setValue("");
                 }
                 oFileUploader.destroyHeaderParameters();
             },
@@ -970,6 +966,13 @@ sap.ui.define([
                     new sap.ui.unified.FileUploaderParameter({
                         name: "x-custom-origem",
                         value: oCombo.getSelectedKey()
+                    })
+                );
+
+                oFileUploader.addHeaderParameter(
+                    new sap.ui.unified.FileUploaderParameter({
+                        name: "x-custom-app-id",
+                        value: 'CFG_TT'
                     })
                 );
     

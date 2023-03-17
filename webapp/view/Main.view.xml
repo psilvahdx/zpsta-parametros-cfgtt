@@ -46,9 +46,9 @@
 										<content>
 											<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
 											<FlexBox id="_IDGenFlexBox2">
-												<u:FileUploader id="fileUploader" name="fup_data" uploadUrl="/event_translator/upload_file" tooltip="{i18n>fup_tooltip_search_file}"
+												<u:FileUploader id="fileUploader" name="fup_data" uploadUrl="/sap/opu/odata/sap/ZPSGW_CONFIG_SRV/FileSet" tooltip="{i18n>fup_tooltip_search_file}"
 													uploadComplete="handleUploadComplete" change="handleFiles" typeMissmatch="handleTypeMissmatch" style="Emphasized" fileType="csv"
-													placeholder="{i18n>fup_plch_select_file}"/>
+													placeholder="{i18n>fup_plch_select_file}" useMultipart="false"/>
 												<Button id="btnImportFile" visible="false" text="{i18n>btn_file_upload}" icon="sap-icon://upload" press="handleUploadPress"/>
 												<!-- <u:FileUploader id="fileUploader" change="handleFiles"/> handleValueChange -->
 											</FlexBox>
