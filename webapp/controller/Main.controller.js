@@ -31,9 +31,8 @@ sap.ui.define([
                 this._pdfViewer = new PDFViewer();
                 this.getView().addDependent(this._pdfViewer);
                 
-                var oSample1Model = new JSONModel({
-                    //Source: "https://s4sjtruj2lfrczsu-psta-param-cfgtt.li5131.portoseguro.brasil:30033/manuais/guia_do_usuario.pdf"
-                    Source: "./manuais/guia_do_usuario.pdf?portalInterceptorAppId=zpsta_param_cfgtt_ui"
+                var oSample1Model = new JSONModel({                    
+                    Source: "/sap/opu/odata/sap/ZPSGW_CONFIG_SRV/FileSet('guia_do_usuario.pdf')/$value"
                 });
                 
                 var oValidationModel = new JSONModel({
@@ -123,8 +122,8 @@ sap.ui.define([
                             }
     
                             jQuery.each(oRetrievedResult.results, function (index, value) {
-                                if (columnName === value.ttField) {
-                                    oColumn.setLabel(value.field);
+                                if (columnName === value.TtField) {
+                                    oColumn.setLabel(value.Field);
                                     oColumn.setVisible(true);
                                 }
                             });
@@ -297,10 +296,10 @@ sap.ui.define([
                     selectedIndices.forEach(function (selectedIndex) {
     
                         var context = tblDados.getContextByIndex(selectedIndex);
-                        var IDSEC = context.getObject().IDSEC;
-                        var path = "/OZPSTA_CFG_TT(" + IDSEC + "l)";
-                        // var path = "/OZPSTA_CFG_TT(\'" + IDSEC + "\')";
+                        var IDSEC = context.getObject().IDSEC;                        
+                        //var path = "/OZPSTA_CFG_TT(" + IDSEC + "l)";                        
                         var oModel = that.getOwnerComponent().getModel();
+                        var path  = oModel.createKey("/OZPSTA_CFG_TT", {IDSEC: IDSEC});                         
                         oModel.setUseBatch(true);
                         that.openDialog(path, oModel);
     
@@ -754,6 +753,8 @@ sap.ui.define([
             },
             
             onPDFViewer: function (oEvent) {
+                //var sUrl = "/sap/opu/odata/sap/ZPSGW_CONFIG_SRV/FileSet('guia_do_usuario.pdf')/$value";
+                //sap.m.URLHelper.redirect(sUrl,true);
                 var sSource = oEvent.getSource().getModel().getData().Source;
                 this._pdfViewer.setSource(sSource);
                 this._pdfViewer.setTitle("Guia do usuario");
