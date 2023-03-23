@@ -16,6 +16,10 @@ builder:
         target:
           url: http://li5762.portoseguro.brasil:8200
           client: "100"
+          auth: basic
+        credentials:
+          username: env:UI5_USERNAME
+          password: env:UI5_PASSWORD
         app:
           name: ZPSTA_CFG_TT
           package: ZFPSL
