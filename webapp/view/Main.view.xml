@@ -2,7 +2,7 @@
     xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
     xmlns:l="sap.ui.layout" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:core="sap.ui.core"
     xmlns:ui="sap.ui.table" xmlns:f="sap.f" xmlns:u="sap.ui.unified">
-    <Page id="page" title="{i18n>title}">
+    <Page id="page" title="{i18n>title}" showNavButton="true" navButtonPress="onNavBack">
         <f:DynamicPage id="dynamicPageId" showFooter="true">
 						<f:title>
 							<f:DynamicPageTitle id="_IDGenDynamicPageTitle1">
