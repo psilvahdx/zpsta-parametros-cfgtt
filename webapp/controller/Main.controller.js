@@ -1,12 +1,9 @@
 sap.ui.define([
     "portoseguro/zpstacfgtt/controller/BaseController",
-    "sap/m/MessageToast",
-	"sap/ui/export/library",
-	"sap/ui/export/Spreadsheet",
-	"sap/ui/core/util/File",
+    "sap/m/MessageToast",	
+	"sap/ui/export/Spreadsheet",	
 	"sap/m/PDFViewer",
-	"sap/ui/model/json/JSONModel",
-	"sap/m/Dialog",
+	"sap/ui/model/json/JSONModel",	
 	"sap/m/Button",
 	"sap/m/ButtonType",
     "sap/m/Label",
@@ -17,11 +14,14 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, MessageToast, exportLibrary, Spreadsheet, File,PDFViewer, JSONModel, Dialog, Button, ButtonType, Label, Fragment, Filter, FilterOperator) {
+    function (BaseController, MessageToast, Spreadsheet, PDFViewer, JSONModel, Button, ButtonType, Label, Fragment, Filter, FilterOperator) {
         "use strict";
 
         return BaseController.extend("portoseguro.zpstacfgtt.controller.Main", {
             onInit: function () {
+
+               
+
                 this.getView().addStyleClass("sapUiSizeCompact");
                 setTimeout(function () {
                     MessageToast.show('Por favor, selecione uma origem para visualizar os dados!');
@@ -39,24 +39,28 @@ sap.ui.define([
                     arrIdsec: [],
                     lenghtIdsec: 0
                 });
-                
-                this.getView().setModel(oValidationModel, "oValidationModel");
-                
-                this.byId('btnHelp').setModel(oSample1Model);
-                
-                this.getView().setModel(this.ttViewModel(), "oModelTTView");
 
+                var ocfgTTViewModel = new JSONModel({
+                    busy : false,
+                    delay : 0
+                });
+                
+                this.getView().setModel(ocfgTTViewModel,"cfgTTViewModel");                
+                this.getView().setModel(oValidationModel, "oValidationModel");                
+                this.byId('btnHelp').setModel(oSample1Model);                
+                this.getView().setModel(this.ttViewModel(), "oModelTTView");
                 this.byId('smartFilterBar-btnGo').setText(this.geti18NText("FILTER_BAR_GO")); 
-                sap.ui.getCore().byId('__text4').setText(this.geti18NText("FILTER_BAR_NO_FILTER"));
+
+                                
             },
             
             onResize: function () {
-                var oTable = this.getView().byId("ItemsTable");
+                var oTable = this.getView().byId("smrtTable");
                 this.customizeTableColumnLabels(oTable);
             },
             
             onBtnOrigem: function () {
-                var oTable = this.getView().byId("ItemsTable");
+                var oTable = this.getView().byId("smrtTable");
                 var oFilterBar = this.getView().byId("smartFilterBar");
                 oTable.setVisible(true);
                 oFilterBar.setVisible(true);
@@ -67,6 +71,8 @@ sap.ui.define([
                         oColumn.setVisible(true);
                     } catch (e) {
                         console.log(e);
+                        MessageToast.show("Ocorreu um erro inesperado... Aplicação será recarredada");
+                        window.location.reload();
                     }
                 });
                 this.customizeTableColumnLabels(oTable);
@@ -75,19 +81,14 @@ sap.ui.define([
             },
     
             onBeforeRebindTable: function (oEvent) {
-                //Filtra os dados da tabela exibindo apenas os relacionados a origem selecionada no combobox
-                //var oTable = this.getView().byId("ItemsTable");
-                //this.customizeTableColumnLabels(oTable);
-    
-                var oCombo = this.getView().byId("cmbOrigens");
-                var script = oCombo.getSelectedKey();
-    
-                var mBindingParams = oEvent.getParameter("bindingParams");
-    
-                var oFilterBar = this.getView().byId("smartFilterBar");
-                var oFilters = oFilterBar.getFilters();
-                oFilters.push(new sap.ui.model.Filter("Script", sap.ui.model.FilterOperator.EQ, script));
-    
+                //Filtra os dados da tabela exibindo apenas os relacionados a origem selecionada no combobox   
+                var oCombo = this.getView().byId("cmbOrigens"),
+                    script = oCombo.getSelectedKey(),    
+                    mBindingParams = oEvent.getParameter("bindingParams"),    
+                    oFilterBar = this.getView().byId("smartFilterBar"),
+                    oFilters = oFilterBar.getFilters();
+
+                oFilters.push(new sap.ui.model.Filter("Script", sap.ui.model.FilterOperator.EQ, script));    
                 mBindingParams.filters = oFilters;
     
             },
@@ -117,16 +118,21 @@ sap.ui.define([
                             var oColumn = oTable._getColumnByKey(columnName);
     
                             if (columnName.includes("field")) {
-                                //oTable.setIgnoredFields(ignoreFields);
-                                oColumn.setVisible(false);
+                                //oTable.setIgnoredFields(ignoreFields);                               
+                                    oColumn.setVisible(false);                                
+                                
                             }
-    
+
+                          
                             jQuery.each(oRetrievedResult.results, function (index, value) {
-                                if (columnName === value.TtField) {
-                                    oColumn.setLabel(value.Field);
-                                    oColumn.setVisible(true);
-                                }
-                            });
+                                    if (columnName === value.TtField) {
+                                        oColumn.setLabel(value.Field);
+                                        oColumn.setVisible(true);
+                                    }
+                           });    
+                           
+    
+                            
     
                         });
     
@@ -159,40 +165,53 @@ sap.ui.define([
     
             onDelete: function () {
                 var that = this;
-                var oModel = that.getOwnerComponent().getModel();
+                var oModel = that.getOwnerComponent().getModel(),
+                    oViewModel = that.getView().getModel("cfgTTViewModel");
                 oModel.setUseBatch(false);
                 this.approveDialog(function () {
-                    var tblDados = that.byId("ItemsTable").getTable(),
-                        selectedIndices = tblDados.getSelectedIndices();
+                    var tblDados = that.byId("smrtTable").getTable(),
+                        selectedIndices = tblDados.getSelectedIndices(),
+                        nTotalSucesso = 0,
+                        nTotalErro = 0;
+
+                        
+                    if (selectedIndices.length > 100) {
+                        sap.m.MessageBox.alert("Para excluir mais de 100 Registros, utilize a opção de \"Excluir em massa\"");                        
+                        return;
+
+                    }   
+                    
+                   
+                         oViewModel.setProperty("/busy",true);
     
                     if (selectedIndices.length > 0) {
     
                         selectedIndices.forEach(function (selectedIndex) {
+                         //for (let selectedIndex = 0; selectedIndex < selectedIndices.length; selectedIndex++) {                            
     
                             var context = tblDados.getContextByIndex(selectedIndex);
-                            var IDSEC = context.getObject().IDSEC;
-                            //var path = "/OZPSTA_CFG_TT(" + IDSEC + "l)";                            
+                            var IDSEC = context.getObject().IDSEC;                                              
                             var path = oModel.createKey("/OZPSTA_CFG_TT", {IDSEC: IDSEC});                            
                             
                             oModel.remove(path,
                                 {
-                                    success: function (oData){
-                                        MessageToast.show('Registro excluído com sucesso!');
-                                        oModel.refresh();
+                                    success: function (oData){                                                                        
+                                        nTotalSucesso++;
+                                        that.showDeleteResultMsg(tblDados, oModel, nTotalSucesso, nTotalErro,selectedIndices.length);
                                     },
-                                    error: function (oData){
-                                        sap.m.MessageBox.error('Erro ao excluir registro!');
+                                    error: function (oData){                                        
+                                        nTotalErro++;
+                                        that.showDeleteResultMsg(tblDados, oModel, nTotalSucesso, nTotalErro,selectedIndices.length);
 
                                     }
                                 });
                         });
-                        
-                        
-                        tblDados.clearSelection();
-                        oModel.refresh();
+
+                      
     
                     } else {
-                        var oBundle = this.getResourceBundle();
+                        oViewModel.setProperty("/busy",false);
+                        var oBundle = that.getResourceBundle();
                         var sMsg = oBundle.getText("msgNenhumSelecionado");
                         MessageToast.show(sMsg);
                     }
@@ -200,7 +219,143 @@ sap.ui.define([
                 });
     
             },
-    
+            showDeleteResultMsg: function (tblDados, oModel, nTotalSucesso, nTotalErro, nTotalSelecionado){
+                
+                if ((nTotalSucesso + nTotalErro) >= nTotalSelecionado) {
+                    MessageToast.show(`${nTotalSucesso} Registro(s) excluído(s) com sucesso!`);
+                    nTotalSucesso = 0;
+                    nTotalErro = 0;
+                    tblDados.clearSelection();
+                    oModel.refresh();
+                    let  oViewModel = this.getView().getModel("cfgTTViewModel");
+                    oViewModel.setProperty("/busy",false);
+                }
+                if (nTotalErro > 0 ) {
+                    sap.m.MessageBox.error(`Erro ao excluir ${nTotalErro} registro(s)!`);                   
+                    nTotalSucesso = 0;
+                    nTotalErro = 0;
+                    tblDados.clearSelection();
+                    oModel.refresh();
+                    let  oViewModel = this.getView().getModel("cfgTTViewModel");
+                    oViewModel.setProperty("/busy",false);
+                }
+                
+            },
+//EXCLUIR EM MASSA - INICIO
+            _getDeleteMassDialog: function (fragmentDialog) {
+                if (!this._oDeleteMassDialog) {
+                    this._oDeleteMassDialog = sap.ui.xmlfragment("frmDeleteMassDialog",fragmentDialog, this);
+                    //this._oDeleteMassDialog.addStyleClass("sapUiSizeCompact");
+                    this.getView().addDependent(this._oDeleteMassDialog);
+                }
+                return this._oDeleteMassDialog;
+            },
+            
+            onDeleteMass: function(oEvent){
+                this.openDeleteMassDialog();
+            },
+
+            openDeleteMassDialog: function(){
+                var dialogDelMass = this._getDeleteMassDialog("portoseguro.zpstacfgtt.view.Dialogs.DeleteMassDialog");
+                dialogDelMass.open();
+            },
+
+            handleDeleteFile: function(oEvent){
+
+            },
+
+            onDeleteMassCancel: function(oEvent){
+                var dialogDelMass = this._getDeleteMassDialog("portoseguro.zpstacfgtt.view.Dialogs.DeleteMassDialog");
+                var oFileUploader = sap.ui.core.Fragment.byId("frmDeleteMassDialog","delFileUploader");
+                var obtnImportFile = sap.ui.core.Fragment.byId("frmDeleteMassDialog","btnImpFileDelMass");
+                oFileUploader.setValue("");
+                obtnImportFile.setVisible(false);
+                dialogDelMass.close();
+            },
+
+            handleUploadDelMassPress: function (oEvent) {
+				var that = this,
+                    oFileUploader = sap.ui.core.Fragment.byId("frmDeleteMassDialog","delFileUploader");
+				if (!oFileUploader.getValue()) {
+					MessageToast.show("Nenhum arquivo selecionado");
+					return;
+				}
+
+                var sMessage = that.geti18NText("confirma_exclusao_em_massa");
+                sap.m.MessageBox.information(
+                    sMessage,
+                    {
+                        actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+                        onClose: function (sAction) {
+                            if (sAction === sap.m.MessageBox.Action.YES) {
+                                
+                                oFileUploader.addHeaderParameter(
+                                    new sap.ui.unified.FileUploaderParameter({
+                                        name: "X-CSRF-Token",
+                                        value: that.getView().getModel().getSecurityToken()
+                                    })
+                                );
+                
+                                oFileUploader.addHeaderParameter(
+                                    new sap.ui.unified.FileUploaderParameter({
+                                        name: "x-custom-app-id",
+                                        value: 'CFG_TT_DEL'
+                                    })
+                                );
+                
+                                oFileUploader.setSendXHR(true);
+                
+                                oFileUploader.upload();
+                                let  oViewModel =  that.getView().getModel("cfgTTViewModel");
+                                    oViewModel.setProperty("/busy",true);
+
+                            }
+                        }
+                    });
+
+				
+			},
+            
+            handleUploadDelMassValueChange: function (oEvent) {
+				var obtnImportFile = sap.ui.core.Fragment.byId("frmDeleteMassDialog","btnImpFileDelMass");
+				obtnImportFile.setVisible(true);
+
+			},
+            handleUploadDeleteComplete: function(oEvent){
+                var sResponseStatus = oEvent.getParameter("status");
+				var obtnImportFile = sap.ui.core.Fragment.byId("frmDeleteMassDialog","btnImpFileDelMass");
+				var oFileUploader = sap.ui.core.Fragment.byId("frmDeleteMassDialog","delFileUploader");
+                let  oViewModel = this.getView().getModel("cfgTTViewModel");
+                    
+
+				if (sResponseStatus === 200 || sResponseStatus === 201) {
+					
+                    var oModel = this.getView().getModel();
+					MessageToast.show("Registros Excluídos com Sucesso!");
+					
+                    this.resetControlFileDelMass(oFileUploader,obtnImportFile,oViewModel);
+					oModel.refresh();
+                    this.onDeleteMassCancel();
+				} 
+                else {
+                    let sResponseRaw = oEvent.getParameter("responseRaw");
+                    let oJsonResponse = this.parseXmlToJson(sResponseRaw);
+
+                    if(oJsonResponse && oJsonResponse.message){
+                        sap.m.MessageBox.error(oJsonResponse.message);                        
+                        this.resetControlFileDelMass(oFileUploader,obtnImportFile,oViewModel);                        
+                    }else{
+                        sap.m.MessageBox.error("Erro ao Importar arquivo");                        
+                        this.resetControlFileDelMass(oFileUploader,obtnImportFile,oViewModel);                        
+                    }
+                }
+            },
+            resetControlFileDelMass: function (oFileUploader, obtnImportFile,oViewModel){
+                    oFileUploader.setValue("");
+					obtnImportFile.setVisible(false);
+                    oViewModel.setProperty("/busy",false);
+            },
+//EXCLUIR EM MASSA - FIM    
             openDialog: function (sPath, oModel) {
     
                 sap.ui.core.BusyIndicator.show();
@@ -275,8 +430,7 @@ sap.ui.define([
                 };
     
                 var oModel = this.getOwnerComponent().getModel();
-                oModel.setUseBatch(true);
-                //var oContext = oModel.createEntry("/OZPSTA_CFG_EMP_TT", {
+                oModel.setUseBatch(true);                
                 var oContext = oModel.createEntry("/OZPSTA_CFG_TT", {
                     properties: newItem
                 });
@@ -288,7 +442,7 @@ sap.ui.define([
     
             onEdit: function () {
     
-                var tblDados = this.byId("ItemsTable").getTable(),
+                var tblDados = this.byId("smrtTable").getTable(),
                     selectedIndices = tblDados.getSelectedIndices();
                 var that = this;
                 if (selectedIndices.length === 1) {
@@ -296,8 +450,7 @@ sap.ui.define([
                     selectedIndices.forEach(function (selectedIndex) {
     
                         var context = tblDados.getContextByIndex(selectedIndex);
-                        var IDSEC = context.getObject().IDSEC;                        
-                        //var path = "/OZPSTA_CFG_TT(" + IDSEC + "l)";                        
+                        var IDSEC = context.getObject().IDSEC;                                                                        
                         var oModel = that.getOwnerComponent().getModel();
                         var path  = oModel.createKey("/OZPSTA_CFG_TT", {IDSEC: IDSEC});                         
                         oModel.setUseBatch(true);
@@ -306,7 +459,7 @@ sap.ui.define([
                     });
     
                 } else {
-                    var oBundle = this.getResourceBundle();
+                    var oBundle = that.getResourceBundle();
                     var sMsg = oBundle.getText("msgApenasUmSelecionado");
                     MessageToast.show(sMsg);
                 }
@@ -338,7 +491,7 @@ sap.ui.define([
                 that.onValidaDados(model, that, function () {
                     var mParameters = {
                         success: function (oData, response) {
-                            var oTable = that.getView().byId("ItemsTable");
+                            var oTable = that.getView().byId("smrtTable");
                             oTable.rebindTable();
                             sap.ui.core.BusyIndicator.hide();
                             MessageToast.show("Salvo com sucesso!");
@@ -390,31 +543,14 @@ sap.ui.define([
                         sap.ui.core.BusyIndicator.hide();
                     }
                 });
-            },
-    
-            // onDataReceived: function () {
-    
-            //     var oTable = this.byId("ItemsTable");
-            //     var i = 0;
-            //     oTable.getTable().getColumns().forEach(function (oLine) {
-            //         var oFieldName = oLine.getId();
-            //         oFieldName = oFieldName.substring(oFieldName.lastIndexOf("-") + 1, oFieldName.length);
-            //         //var oFielTemplate = aTemplate.find(element => {return element.fieldName === oFieldName;});
-            //         if(oFieldName){
-            //             oLine.setProperty("width","200px");
-            //         }
-            //         i++;
-            //     });
-    
-            //     this.customizeTableColumnLabels(oTable);
-    
-            // },
+            },   
+            
     
             onDownloadTemplatePressed: function () {
     
                 var oSettings, oSheet;
     
-                var oTable = this.byId("ItemsTable");
+                var oTable = this.byId("smrtTable");
                 var model = oTable.getModel();
                 var oCombo = this.getView().byId("cmbOrigens");
                 var script = oCombo.getSelectedKey();
@@ -538,7 +674,7 @@ sap.ui.define([
             onExportToExcel: function () {
     
                 var oSettings, oSheet;
-                var oTable = this.byId("ItemsTable");
+                var oTable = this.byId("smrtTable");
                 var model = oTable.getModel();
                 var oCombo = this.getView().byId("cmbOrigens");
                 var script = oCombo.getSelectedKey();
@@ -628,7 +764,7 @@ sap.ui.define([
                 var that = this;
     
                 if (!this._oTable) {
-                    this._oTable = this.byId('ItemsTable').getTable();
+                    this._oTable = this.byId('smrtTable').getTable();
                 }
     
                 oTable = this._oTable;
@@ -854,47 +990,7 @@ sap.ui.define([
                         validDialog(total, valMessage);
                     }
                 }
-                
-                //Recupera IDSEC da tabela e compara com os IDSEC do csv
-                /*function validateIdsec(){
-                    var script = oCombo.getSelectedKey();
-                    var sPath = "/OZPSTA_CFG_EMP_TT";
-                    var oDataIdsec = [];
-                    var oFilters = [];
-                    var oBusyDialog = new sap.m.BusyDialog();
-                    oBusyDialog.open();
-                    oFilters.push(new sap.ui.model.Filter("script", sap.ui.model.FilterOperator.EQ, script));
-                    
-                    _currModel.read(sPath, {
-                        filters: oFilters,
-                        
-                        success: function(oData){
-                            var i = 0;
-                            var total = 0;
-                            var valMessage = 0;
-                            
-                            for(i = 0; i < oData.results.length; i++){
-                                oDataIdsec.push(oData.results[i].IDSEC);
-                            }
-                            
-                            for(i = 0; i < linesIdsecArr.length; i++){
-                                if(oDataIdsec.includes(linesIdsecArr[i].toString())){
-                                    total += 1; valMessage += 1;
-                                }else{
-                                    total += 1;
-                                }
-                            }
-                            validDialog(total, valMessage);
-                        },
-                        
-                        error: function(){
-                            console.error(`ERR: Erro ao ler a entidade ${sPath}`);
-                        }
-                    })
-                    
-                    oBusyDialog.close();
-                }*/
-                
+                              
                 //	Instanciar um Dialog flexivel, com base na validação
                 function validDialog(total, valMessage){
                     var updMessage = `Encontramos ${total} registro(s) que possuem IDSEC. Estes registros podem sobrescrever outros na tabela. \n Deseja continuar?`;
@@ -1097,6 +1193,13 @@ sap.ui.define([
                     //MessageToast.show("No new item was selected.");
                 }
                 oEvent.getSource().getBinding("items").filter([]);
+            },
+
+            onExit: function(oEvent){
+                //sap.ui.core.UIComponent.prototype.destroy.apply(this, arguments);
+                //this.getView().destroy();
+               // var oTable = this.getView().byId("smrtTable");
+                //oTable = undefined;
             }
         });
     });

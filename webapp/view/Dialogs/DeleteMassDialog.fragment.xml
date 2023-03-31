@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core"  xmlns:u="sap.ui.unified" class="sapUiContentPadding">
+	<Dialog id="frmDeleteMassDialog" title="{i18n>btn_delete_massa}" busy="{cfgTTViewModel>/busy}" titleAlignment="Center"
+	contentWidth="25%" contentHeight="25%" draggable="true" resizable="true">
+		<content>
+
+		 <VBox id="vbHeader" class="sapUiSmallMargin">
+		  <MessageStrip id="msgStrpDelMass"
+				text="{i18n>excluir_registros_em_massa_txt}"
+				type="Warning"
+				showIcon="true"
+				showCloseButton="false"
+				class="sapUiMediumMarginBottom">
+			</MessageStrip>
+		 </VBox>
+		 <VBox id="vbBody" class="sapUiSmallMargin">
+		 
+		 <u:FileUploader id="delFileUploader" name="del_data" uploadUrl="/sap/opu/odata/sap/ZPSGW_CONFIG_SRV/FileSet" tooltip="{i18n>fup_tooltip_search_file}"
+													uploadComplete="handleUploadDeleteComplete" change="handleUploadDelMassValueChange" typeMissmatch="handleTypeMissmatch" style="Emphasized" fileType="csv"
+													placeholder="{i18n>fup_plch_select_file}" useMultipart="false"
+													busy="{cfgTTViewModel>/busy}"
+													width="100%"/>                
+		 </VBox>
+				                                                   
+		</content>
+		<beginButton>
+			<Button id="btnImpFileDelMass" type="Success" visible="false" text="{i18n>btn_file_upload}" icon="sap-icon://upload" press="handleUploadDelMassPress"/> 
+		</beginButton>		
+		<endButton>
+			<Button xmlns="sap.m" text="{i18n>btnCancel}" id="btnDelMassCancel" press=".onDeleteMassCancel"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

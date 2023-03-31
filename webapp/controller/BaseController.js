@@ -81,17 +81,8 @@ sap.ui.define([
 			oHistory = History.getInstance();
 			sPreviousHash = oHistory.getPreviousHash();
 
-			if (sPreviousHash !== undefined) {
-				window.history.go(-1);
-			} else {
-				this.getRouter().navTo("appHome", {}, true /*no history*/);
-			}
-			if (this._oDialog){
-				this._oDialog.destroy();
-				this._oDialog = undefined;
-			}
-
-			
+			window.history.go(-1);
+					
 		},
 		
 		onCancel: function(){
@@ -119,28 +110,17 @@ sap.ui.define([
 
 		getResourceBundle: function () {
 			return this.getOwnerComponent().getModel("i18n").getResourceBundle();
-		}
-
-		// getLastId: function(){
-		// 	var _oIdsec;
-		// 	var model = this.getOwnerComponent().getModel();
-
-		// 	model.read("/OZPSTA_CFG_EMP_TT",
-		// 	{	
-		// 		urlParameters: {
-		// 			$top: 1,
-		// 			orderby: 'Idsec',
-		// 			descending: true
-		// 		},
-		// 		// filters: oFilters,
-		// 		success: function (oRetrievedResult) {
-		// 			_oIdsec = oRetrievedResult.results.Idsec;
-		// 		},
-		// 		error: function (oError) { /* do something */ }
-		// 	});
-
-		// 	return _oIdsec;
-		// }
+		},
+		parseXmlToJson: function (strXML) {
+			const jsonObj = {};
+			for (const res of strXML.matchAll(/(?:<(\w*)(?:\s[^>]*)*>)((?:(?!<\1).)*)(?:<\/\1>)|<(\w*)(?:\s*)*\/>/gm)) {
+				const key = res[1] || res[3];
+				const value = res[2] && this.parseXmlToJson(res[2]);
+				jsonObj[key] = ((value && Object.keys(value).length) ? value : res[2]) || null;
+		
+			}
+			return jsonObj;
+		}		
 
 	});
 
