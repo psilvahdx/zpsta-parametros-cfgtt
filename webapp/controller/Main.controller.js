@@ -71,7 +71,7 @@ sap.ui.define([
                         oColumn.setVisible(true);
                     } catch (e) {
                         console.log(e);
-                        MessageToast.show("Ocorreu um erro inesperado... Aplicação será recarredada");
+                        MessageToast.show("Ocorreu um erro inesperado... Aplicação será recarregada");
                         window.location.reload();
                     }
                 });
